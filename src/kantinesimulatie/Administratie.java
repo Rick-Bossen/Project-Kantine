@@ -1,3 +1,5 @@
+package kantinesimulatie;
+
 public class Administratie {
 
     /**
@@ -8,6 +10,7 @@ public class Administratie {
      */
     public double berekenGemiddeldAantal(int[] aantal) {
         // method body omitted
+        return 0;
     }
 
     /**
@@ -18,6 +21,7 @@ public class Administratie {
      */
     public double berekenGemiddeldeOmzet(double[] omzet) {
         // method body omitted
+        return 0;
     }
 
     /**
@@ -32,12 +36,12 @@ public class Administratie {
         for(int i = 0; i < 7; i++) {
 
             int j = 0;
-            while( ... ) {
+//            while( ... ) {
                 temp[i] += omzet[i + 7 * j];
 
                 // omitted
 
-            }
+//            }
         }
         return temp;
     }

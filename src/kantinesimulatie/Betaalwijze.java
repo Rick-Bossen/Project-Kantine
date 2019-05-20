@@ -1,3 +1,5 @@
+package kantinesimulatie;
+
 public abstract class Betaalwijze {
 
     protected double saldo;

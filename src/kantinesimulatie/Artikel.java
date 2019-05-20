@@ -1,3 +1,5 @@
+package kantinesimulatie;
+
 public class Artikel {
 
     private String naam;

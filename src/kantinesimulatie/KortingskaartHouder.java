@@ -1,3 +1,5 @@
+package kantinesimulatie;
+
 public interface KortingskaartHouder {
 
     /**

@@ -1,3 +1,5 @@
+package kantinesimulatie;
+
 public class Datum {
 
 	private int dag;

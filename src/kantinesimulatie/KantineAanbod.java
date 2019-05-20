@@ -1,3 +1,5 @@
+package kantinesimulatie;
+
 import java.util.*;
 
 public class KantineAanbod {

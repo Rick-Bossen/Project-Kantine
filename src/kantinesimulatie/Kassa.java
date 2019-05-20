@@ -1,3 +1,5 @@
+package kantinesimulatie;
+
 import java.util.Iterator;
 
 public class Kassa {
@@ -29,6 +31,8 @@ public class Kassa {
      */
     public int aantalArtikelen() {
         // method body omitted
+
+        return 0;
     }
 
     /**
@@ -40,6 +44,7 @@ public class Kassa {
      */
     public double hoeveelheidGeldInKassa() {
         // method body omitted
+        return 0;
     }
 
     /**

@@ -1,3 +1,5 @@
+package kantinesimulatie;
+
 public class Kantine {
 
     private Kassa kassa;
@@ -25,9 +27,9 @@ public class Kantine {
      * Deze methode handelt de rij voor de kassa af.
      */
     public void verwerkRijVoorKassa() {
-        while() {
+//        while() {
             // omitted
-        }
+//        }
     }
 
     /**
@@ -37,6 +39,7 @@ public class Kantine {
      */
     public double hoeveelheidGeldInKassa() {
        // method body omitted
+        return 0;
     }
 
     /**
@@ -46,6 +49,7 @@ public class Kantine {
      */
     public int aantalArtikelen() {
         // method body omitted
+        return 0;
     }
 
     /**

@@ -1,3 +1,5 @@
+package kantinesimulatie;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -28,6 +30,7 @@ public class KassaRij {
      */
     public Dienblad eerstePersoonInRij() {
         // method body omitted
+        return null;
     }
 
     /**
@@ -37,5 +40,6 @@ public class KassaRij {
      */
     public boolean erIsEenRij() {
         // method body omitted
+        return false;
     }
 }

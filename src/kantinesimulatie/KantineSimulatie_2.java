@@ -1,6 +1,8 @@
+package kantinesimulatie;
+
 import java.util.*;
 
-public class KantineSimulatie {
+public class KantineSimulatie_2 {
 
     // kantine
     private Kantine kantine;
@@ -37,7 +39,7 @@ public class KantineSimulatie {
      * Constructor
      *
      */
-    public KantineSimulatie() {
+    public KantineSimulatie_2() {
         kantine = new Kantine();
         random = new Random();
         int[] hoeveelheden = getRandomArray(
@@ -47,7 +49,7 @@ public class KantineSimulatie {
         kantineaanbod = new KantineAanbod(
             artikelnamen, artikelprijzen, hoeveelheden);
 
-        kantine.setKantineAanbod(kantineaanbod);
+//        kantine.setKantineAanbod(kantineaanbod);
     }
 
     /**
@@ -109,28 +111,28 @@ public class KantineSimulatie {
         for(int i = 0; i < dagen; i++) {
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = ... ;
+//            int aantalpersonen = ... ;
 
             // laat de personen maar komen...
-            for(int j = 0; j < aantalpersonen; j++) {
+//            for(int j = 0; j < aantalpersonen; j++) {
 
                 // maak persoon en dienblad aan, koppel ze
                 // en bedenk hoeveel artikelen worden gepakt
-                int aantalartikelen = ... ;
+//                int aantalartikelen = ... ;
 
                 // genereer de "artikelnummers", dit zijn indexen
                 // van de artikelnamen
-                array int[] tepakken = getRandomArray(
-                    aantalartikelen, 0, AANTAL_ARTIKELEN-1);
+//                array int[] tepakken = getRandomArray(
+//                    aantalartikelen, 0, AANTAL_ARTIKELEN-1);
 
                 // vind de artikelnamen op basis van
                 // de indexen hierboven
-                String[] artikelen = geefArtikelNamen(tepakken);
+//                String[] artikelen = geefArtikelNamen(tepakken);
 
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
 
-            }
+//            }
 
             // verwerk rij voor de kassa
 

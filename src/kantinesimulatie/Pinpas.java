@@ -1,3 +1,5 @@
+package kantinesimulatie;
+
 public class Pinpas extends Betaalwijze {
 
     private double kredietlimiet;
@@ -15,5 +17,6 @@ public class Pinpas extends Betaalwijze {
      */
     public boolean betaal(double tebetalen) {
         // method body omitted
+        return false;
     }
 }
