@@ -1,3 +1,7 @@
+package src.kantinesimulatie.main;
+
+import src.kantinesimulatie.kantine.Kantine;
+
 public class KantineSimulatie {
 
     private Kantine kantine;

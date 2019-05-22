@@ -1,3 +1,5 @@
+package src.kantinesimulatie.kantine;
+
 public class Administratie {
 
     /**

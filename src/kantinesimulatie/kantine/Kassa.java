@@ -1,12 +1,23 @@
+package src.kantinesimulatie.kantine;
+
+import src.kantinesimulatie.klant.Dienblad;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Iterator;
 
 public class Kassa {
+
+    private KassaRij kassarij;
+    private int aantalArtikelen;
+    private BigDecimal saldo;
 
     /**
      * Constructor
      */
     public Kassa(KassaRij kassarij) {
-        // method body omitted
+        this.kassarij = kassarij;
+        resetKassa();
     }
 
     /**
@@ -18,7 +29,8 @@ public class Kassa {
      * @param klant die moet afrekenen
      */
     public void rekenAf(Dienblad klant) {
-        // method body omitted
+        aantalArtikelen += klant.getAantalArtikelen();
+        saldo = saldo.add(klant.getTotaalPrijs());
     }
 
     /**
@@ -28,7 +40,7 @@ public class Kassa {
      * @return aantal artikelen
      */
     public int aantalArtikelen() {
-        // method body omitted
+        return aantalArtikelen;
     }
 
     /**
@@ -38,8 +50,8 @@ public class Kassa {
      *
      * @return hoeveelheid geld in de kassa
      */
-    public double hoeveelheidGeldInKassa() {
-        // method body omitted
+    public BigDecimal hoeveelheidGeldInKassa() {
+        return saldo;
     }
 
     /**
@@ -47,6 +59,8 @@ public class Kassa {
      * de totale hoeveelheid geld in de kassa.
      */
     public void resetKassa() {
-        // method body omitted
+        aantalArtikelen = 0;
+        saldo = BigDecimal.ZERO;
+        saldo = saldo.setScale(2, RoundingMode.HALF_EVEN);
     }
 }

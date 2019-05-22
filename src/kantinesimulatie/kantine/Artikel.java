@@ -1,26 +1,30 @@
+package src.kantinesimulatie.kantine;
+
+import java.math.BigDecimal;
+
 public class Artikel {
 
     private String naam;
-    private double prijs;
+    private BigDecimal prijs;
 
     /**
      * Constructor
      */
-    public Artikel(String naam, double prijs){
+    public Artikel(String naam, BigDecimal prijs){
         this.naam = naam;
         this.prijs = prijs;
     }
 
     public Artikel() {
         naam = null;
-        prijs = 0;
+        prijs = BigDecimal.ZERO;
     }
 
     public void setNaam(String naam) {
         this.naam = naam;
     }
 
-    public void setPrijs(double prijs) {
+    public void setPrijs(BigDecimal prijs) {
         this.prijs = prijs;
     }
 
@@ -28,7 +32,11 @@ public class Artikel {
         return naam;
     }
 
-    public double getPrijs() {
+    public BigDecimal getPrijs() {
         return prijs;
+    }
+
+    public String toString(){
+        return String.format("%s: %s", naam, prijs.toString());
     }
 }

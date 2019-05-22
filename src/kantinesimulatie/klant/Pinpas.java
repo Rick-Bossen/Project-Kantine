@@ -1,3 +1,7 @@
+package src.kantinesimulatie.klant;
+
+import java.math.BigDecimal;
+
 public class Pinpas extends Betaalwijze {
 
     private double kredietlimiet;
@@ -6,14 +10,14 @@ public class Pinpas extends Betaalwijze {
      * Methode om kredietlimiet te zetten
      * @param kredietlimiet
      */
-    public void setKredietLimiet(double kredietlimiet) {
+    public void setKredietLimiet(BigDecimal kredietlimiet) {
         // method body omitted
     }
 
     /**
      * Methode om betaling af te handelen
      */
-    public boolean betaal(double tebetalen) {
+    public boolean betaal(BigDecimal tebetalen) {
         // method body omitted
     }
 }

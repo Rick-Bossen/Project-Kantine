@@ -1,3 +1,5 @@
+package src.kantinesimulatie.kantine;
+
 public class Kantine {
 
     private Kassa kassa;
@@ -12,7 +14,7 @@ public class Kantine {
     }
 
     /**
-     * In deze methode wordt een Persoon en Dienblad gemaakt
+     * In deze methode wordt een Persoon en src.kantinesimulatie.klant.Dienblad gemaakt
      * en aan elkaar gekoppeld. Maak twee Artikelen aan
      * en plaats deze op het dienblad. Tenslotte sluit de
      * Persoon zich aan bij de rij voor de kassa.
