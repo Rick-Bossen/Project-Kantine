@@ -1,5 +1,6 @@
 package canteensimulation.utility;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
@@ -101,15 +102,14 @@ public class Date {
      * @return If the date is valid.
      */
     private boolean dateIsValid(int date, int month, int year){
-        try{
-            GregorianCalendar calendar = new GregorianCalendar();
-            calendar.setLenient(false);
-            calendar.set(year, month - 1, date);
-
-            return calendar.getTimeInMillis() > 0 && year >= MIN_YEAR && year <= MAX_YEAR;
-        }catch (IllegalArgumentException exception){
+        if(year < MIN_YEAR || year > MAX_YEAR || month < 1 || month > 12){
             return false;
         }
+
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.MONTH, month - 1);
+
+        return date >= 1 && date <= calendar.getActualMaximum(Calendar.DATE);
     }
 
     /**
