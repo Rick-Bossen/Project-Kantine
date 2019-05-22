@@ -87,26 +87,46 @@ public class Person {
     }
 
     /**
-     * Gets the BSN
+     * Gets the BSN of the person
      *
-     * @return the BSN
+     * @return the BSN of the person
      */
     public String getBSN() {
         return BSN;
     }
 
+    /**
+     * Gets the first name of the person
+     *
+     * @return the first name of the person
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Gets the last name of the person
+     *
+     * @return the last name of the person
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Gets the date of birth of the person
+     *
+     * @return the date of birth of the person as a String
+     */
     public String getDateOfBirth() {
         return dateOfBirth.toString();
     }
 
+    /**
+     * Gets the gender of the person
+     *
+     * @return the gender of the person
+     */
     public String getGender() {
         switch (gender){
             case MALE:
@@ -118,6 +138,11 @@ public class Person {
         }
     }
 
+    /**
+     * Returns all data about the person in one String
+     *
+     * @return all personal details
+     */
     public String toString(){
         return String.format("%s %s, %s.\n%s\n%s", firstName, lastName, BSN, getDateOfBirth(), getGender());
     }
