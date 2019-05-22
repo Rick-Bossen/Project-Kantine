@@ -13,10 +13,9 @@ public class CashBalance extends PaymentBalance {
      * @param amount Amount to pay.
      * @return If the payment was successful.
      */
-    public boolean pay(String amount){
-        BigDecimal paymentAmount = parseString(amount);
-        if(getBalance().subtract(paymentAmount).compareTo(BigDecimal.ZERO) > -1){
-            subtractAmount(paymentAmount);
+    public boolean pay(BigDecimal amount){
+        if(getBalance().subtract(amount).compareTo(BigDecimal.ZERO) > -1){
+            subtractAmount(amount);
             return true;
         }
         return false;

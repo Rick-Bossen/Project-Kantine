@@ -37,7 +37,6 @@ public class Queue {
     public Tray leaveQueue(){
         return isNotEmpty() ? customers.removeFirst() : null;
     }
-    // Return the first person in queue
 
     /**
      *  Check if the queue is not empty.

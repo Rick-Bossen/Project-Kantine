@@ -1,7 +1,6 @@
 package canteensimulation.customer;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 /**
  * Abstract class representing a payment balance for a specific payment method.
@@ -13,21 +12,11 @@ abstract class PaymentBalance {
     private BigDecimal balance = BigDecimal.ZERO;
 
     /**
-     * Return parsed object based on string.
-     *
-     * @return Parsed BigDecimal
-     */
-    BigDecimal parseString(String amount){
-        return new BigDecimal(amount)
-                .setScale(2, RoundingMode.HALF_EVEN);
-    }
-
-    /**
      * Set the balance of the payment method.
      * @param balance dInitial balance.
      */
-    void setBalance(String balance){
-        this.balance = parseString(balance);
+    void setBalance(BigDecimal balance){
+        this.balance = balance;
     }
 
     /**
@@ -53,6 +42,6 @@ abstract class PaymentBalance {
      * @param amount Amount to pay.
      * @return If the payment was successful.
      */
-    abstract boolean pay(String amount);
+    abstract boolean pay(BigDecimal amount);
 
 }
