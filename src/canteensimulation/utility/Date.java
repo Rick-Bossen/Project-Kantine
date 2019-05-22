@@ -106,10 +106,24 @@ public class Date {
             return false;
         }
 
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.set(Calendar.MONTH, month - 1);
+        int maxDate = 31;
+        switch (month){
+            case 2:
+                if(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)){
+                    maxDate = 29;
+                }else{
+                    maxDate = 28;
+                }
+                break;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                maxDate = 30;
+                break;
+        }
 
-        return date >= 1 && date <= calendar.getActualMaximum(Calendar.DATE);
+        return date >= 1 && date <= maxDate;
     }
 
     /**
@@ -125,3 +139,4 @@ public class Date {
     }
 
 }
+
