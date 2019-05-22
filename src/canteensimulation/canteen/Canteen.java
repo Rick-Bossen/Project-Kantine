@@ -3,6 +3,7 @@ package canteensimulation.canteen;
 import canteensimulation.customer.Tray;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 /**
  * Creates a canteen containing a single cash register with queue.
@@ -21,12 +22,19 @@ public class Canteen {
     }
 
     /**
-     * Create a new customer with tray.
-     * Add 2 items to the tray.
-     * Get in line.
+     * Enter and join the queue with the given items.
+     *
+     * @param tray Tray
+     * @param itemNames Items
      */
-    public void newCustomer(){
-        // @TODO week 2
+    public void enterAndJoinQueue(Tray tray, String[] itemNames){
+        for (String itemName : itemNames){
+            Item item = inventory.getItem(itemName);
+            if(item != null){
+                tray.add(item);
+            }
+        }
+        queue.joinQueue(tray);
     }
 
     /**
