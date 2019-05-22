@@ -17,7 +17,10 @@ public class Item {
         this.price = price;
     }
 
-    Item(){ }
+    Item(){
+        name = null;
+        price = BigDecimal.ZERO;
+    }
 
     public String getName() {
         return name;
@@ -35,4 +38,7 @@ public class Item {
         this.price = price;
     }
 
+    public String toString(){
+        return String.format("%s: %s", name, price.toString());
+    }
 }

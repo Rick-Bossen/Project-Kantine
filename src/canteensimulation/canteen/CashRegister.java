@@ -28,7 +28,8 @@ public class CashRegister {
      * Pay for the tray of the customer
      */
     public void payOff(Tray customer){
-
+        amountOfItems += customer.getAmountOfItems();
+        balance = balance.add(customer.getTotalPrice());
     }
 
     /**

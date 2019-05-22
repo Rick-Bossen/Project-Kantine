@@ -14,7 +14,13 @@ import java.util.Iterator;
  */
 public class Tray {
 
+    private Person customer;
     private ArrayList<Item> items;
+
+    public Tray(Person customer){
+        items = new ArrayList<>();
+        this.customer = customer;
+    }
 
     /**
      * Create a new tray.
@@ -58,4 +64,11 @@ public class Tray {
         return price;
     }
 
+    public Person getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Person customer) {
+        this.customer = customer;
+    }
 }
