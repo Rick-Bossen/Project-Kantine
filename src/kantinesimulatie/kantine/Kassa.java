@@ -1,22 +1,21 @@
-package src.kantinesimulatie.kantine;
+package kantinesimulatie.kantine;
 
-import src.kantinesimulatie.klant.Dienblad;
+import kantinesimulatie.klant.Dienblad;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Iterator;
 
 public class Kassa {
 
-    private KassaRij kassarij;
+    private KassaRij kassaRij;
     private int aantalArtikelen;
     private BigDecimal saldo;
 
     /**
      * Constructor
      */
-    public Kassa(KassaRij kassarij) {
-        this.kassarij = kassarij;
+    public Kassa(KassaRij kassaRij) {
+        this.kassaRij = kassaRij;
         resetKassa();
     }
 

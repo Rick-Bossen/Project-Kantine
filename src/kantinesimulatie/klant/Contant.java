@@ -1,4 +1,4 @@
-package src.kantinesimulatie.klant;
+package kantinesimulatie.klant;
 
 import java.math.BigDecimal;
 
@@ -8,5 +8,6 @@ public class Contant extends Betaalwijze {
      */
     public boolean betaal(BigDecimal tebetalen) {
         // method body omitted
+        return false;
     }
 }

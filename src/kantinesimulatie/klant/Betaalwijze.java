@@ -1,4 +1,4 @@
-package src.kantinesimulatie.klant;
+package kantinesimulatie.klant;
 
 import java.math.BigDecimal;
 

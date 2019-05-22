@@ -1,6 +1,6 @@
-package src.kantinesimulatie.klant;
+package kantinesimulatie.klant;
 
-import src.kantinesimulatie.utility.Datum;
+import kantinesimulatie.utility.Datum;
 
 public class Persoon {
 

@@ -1,29 +1,26 @@
-package src.kantinesimulatie.kantine;
-
-import src.kantinesimulatie.kantine.Artikel;
+package kantinesimulatie.kantine;
 
 import java.math.BigDecimal;
 import java.util.*;
 
 public class KantineAanbod {
-    // interne opslag voorraad
     private HashMap<String, ArrayList<Artikel>> aanbod;
     private HashMap<String, Integer> startVoorraad;
     private HashMap<String, BigDecimal> prijzen;
     
     /**
-     * Constructor. Het eerste argument is een lijst met artikelnamen,
+     * Constructor. Het eerste argument is een lijst met artikelNamen,
      * het tweede argument is een lijst met prijzen en het derde argument
      * is een lijst met hoeveelheden. Let op: de dimensies van de drie arrays
      * moeten wel gelijk zijn!
      */
     public KantineAanbod(String[] artikelnaam, BigDecimal[] prijs, int[] hoeveelheid) {
-        aanbod=new HashMap<String, ArrayList<Artikel>>();
-        startVoorraad=new HashMap<String, Integer>();
-        prijzen=new HashMap<String,BigDecimal>();
+        aanbod= new HashMap<>();
+        startVoorraad= new HashMap<>();
+        prijzen= new HashMap<>();
         for(int i=0;i<artikelnaam.length;i++) 
         {
-            ArrayList<Artikel> artikelen=new ArrayList<Artikel>();
+            ArrayList<Artikel> artikelen= new ArrayList<>();
             for(int j=0;j<hoeveelheid[i];j++) 
             {
                 artikelen.add(new Artikel(artikelnaam[i], prijs[i]));

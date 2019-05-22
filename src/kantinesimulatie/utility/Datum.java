@@ -1,4 +1,4 @@
-package src.kantinesimulatie.utility;
+package kantinesimulatie.utility;
 
 public class Datum {
 
@@ -67,6 +67,7 @@ public class Datum {
 				}else{
 					dagen = 28;
 				}
+				break;
 			case 4:
 			case 6:
 			case 9:

@@ -1,6 +1,6 @@
-package src.kantinesimulatie.klant;
+package kantinesimulatie.klant;
 
-import src.kantinesimulatie.kantine.Artikel;
+import kantinesimulatie.kantine.Artikel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

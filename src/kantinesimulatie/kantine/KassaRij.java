@@ -1,6 +1,6 @@
-package src.kantinesimulatie.kantine;
+package kantinesimulatie.kantine;
 
-import src.kantinesimulatie.klant.Dienblad;
+import kantinesimulatie.klant.Dienblad;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

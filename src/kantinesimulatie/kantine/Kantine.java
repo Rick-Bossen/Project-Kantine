@@ -1,16 +1,25 @@
-package src.kantinesimulatie.kantine;
+package kantinesimulatie.kantine;
+
+import kantinesimulatie.klant.Dienblad;
+
+import java.math.BigDecimal;
 
 public class Kantine {
 
     private Kassa kassa;
-    private KassaRij kassarij;
+    private KassaRij kassaRij;
+    private KantineAanbod kantineAanbod;
 
     /**
      * Constructor
      */
     public Kantine() {
-        kassarij = new KassaRij();
-        kassa = new Kassa(kassarij);
+        kassaRij = new KassaRij();
+        kassa = new Kassa(kassaRij);
+    }
+
+    public void setKantineAanbod(KantineAanbod kantineAanbod) {
+        this.kantineAanbod = kantineAanbod;
     }
 
     /**
@@ -19,16 +28,23 @@ public class Kantine {
      * en plaats deze op het dienblad. Tenslotte sluit de
      * Persoon zich aan bij de rij voor de kassa.
      */
-    public void loopPakSluitAan() {
-        // method body omitted
+    public void loopPakSluitAan(Dienblad dienblad, String[] artikelNamen) {
+        for (String itemName : artikelNamen){
+            Artikel artikel = kantineAanbod.getArtikel(itemName);
+            if(artikel != null){
+                dienblad.voegToe(artikel);
+            }
+        }
+        kassaRij.sluitAchteraan(dienblad);
     }
 
     /**
      * Deze methode handelt de rij voor de kassa af.
      */
     public void verwerkRijVoorKassa() {
-        while() {
-            // omitted
+        while (kassaRij.isNietLeeg()){
+            Dienblad customer = kassaRij.eerstePersoonInRij();
+            kassa.rekenAf(customer);
         }
     }
 
@@ -37,8 +53,8 @@ public class Kantine {
      *
      * @return hoeveelheid geld in kassa
      */
-    public double hoeveelheidGeldInKassa() {
-       // method body omitted
+    public BigDecimal hoeveelheidGeldInKassa() {
+        return kassa.hoeveelheidGeldInKassa();
     }
 
     /**
@@ -47,7 +63,7 @@ public class Kantine {
      * @return het aantal gepasseerde artikelen
      */
     public int aantalArtikelen() {
-        // method body omitted
+       return kassa.aantalArtikelen();
     }
 
     /**
@@ -55,6 +71,6 @@ public class Kantine {
      * het aantal artikelen en "leegt" de inhoud van de kassa.
      */
     public void resetKassa() {
-        // method body omitted
+        kassa.resetKassa();
     }
 }

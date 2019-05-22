@@ -1,10 +1,12 @@
-package src.kantinesimulatie.main;
+package kantinesimulatie.main;
 
-import src.kantinesimulatie.kantine.Kantine;
+import kantinesimulatie.kantine.Kantine;
+import kantinesimulatie.kantine.KantineAanbod;
 
+import java.math.BigDecimal;
 import java.util.*;
 
-public class KantineSimulatie {
+public class KantineSimulatie_2 {
 
     // kantine
     private Kantine kantine;
@@ -19,11 +21,16 @@ public class KantineSimulatie {
     private static final int AANTAL_ARTIKELEN = 4;
 
     // artikelen
-    private static final String[] artikelnamen = new String[]
+    private static final String[] artikelNamen = new String[]
         {"Koffie", "Broodje pindakaas", "Broodje kaas", "Appelsap"};
 
     // prijzen
-    private static double[] artikelprijzen = new double[]{1.50, 2.10, 1.65, 1.65};
+    private static BigDecimal[] artikelPrijzen = new BigDecimal[]{
+        new BigDecimal("1.50"),
+                new BigDecimal("2.10"),
+                new BigDecimal("1.65"),
+                new BigDecimal("1.65")
+    };
 
     // minimum en maximum aantal artikelen per soort
     private static final int MIN_ARTIKELEN_PER_SOORT = 10000;
@@ -41,15 +48,14 @@ public class KantineSimulatie {
      * Constructor
      *
      */
-    public KantineSimulatie() {
+    public KantineSimulatie_2() {
         kantine = new Kantine();
         random = new Random();
         int[] hoeveelheden = getRandomArray(
             AANTAL_ARTIKELEN,
             MIN_ARTIKELEN_PER_SOORT,
             MAX_ARTIKELEN_PER_SOORT);
-        kantineaanbod = new KantineAanbod(
-            artikelnamen, artikelprijzen, hoeveelheden);
+        kantineaanbod = new KantineAanbod(artikelNamen, artikelPrijzen, hoeveelheden);
 
         kantine.setKantineAanbod(kantineaanbod);
     }
@@ -86,16 +92,16 @@ public class KantineSimulatie {
 
     /**
      * Methode om op basis van een array van indexen voor de array
-     * artikelnamen de bijhorende array van artikelnamen te maken
+     * artikelNamen de bijhorende array van artikelNamen te maken
      *
      * @param indexen
-     * @return De array met artikelnamen
+     * @return De array met artikelNamen
      */
     private String[] geefArtikelNamen(int[] indexen) {
         String[] artikelen = new String[indexen.length];
 
         for(int i = 0; i < indexen.length; i++) {
-            artikelen[i] = artikelnamen[indexen[i]];
+            artikelen[i] = artikelNamen[indexen[i]];
 
         }
 
@@ -113,28 +119,28 @@ public class KantineSimulatie {
         for(int i = 0; i < dagen; i++) {
 
             // bedenk hoeveel personen vandaag binnen lopen
-            int aantalpersonen = ... ;
+//            int aantalpersonen = ... ;
 
             // laat de personen maar komen...
-            for(int j = 0; j < aantalpersonen; j++) {
+//            for(int j = 0; j < aantalpersonen; j++) {
 
                 // maak persoon en dienblad aan, koppel ze
                 // en bedenk hoeveel artikelen worden gepakt
-                int aantalartikelen = ... ;
+//                int aantalartikelen = ... ;
 
                 // genereer de "artikelnummers", dit zijn indexen
-                // van de artikelnamen
-                array int[] tepakken = getRandomArray(
-                    aantalartikelen, 0, AANTAL_ARTIKELEN-1);
+                // van de artikelNamen
+//                array int[] tepakken = getRandomArray(
+//                    aantalartikelen, 0, AANTAL_ARTIKELEN-1);
 
-                // vind de artikelnamen op basis van
+                // vind de artikelNamen op basis van
                 // de indexen hierboven
-                String[] artikelen = geefArtikelNamen(tepakken);
+//                String[] artikelen = geefArtikelNamen(tepakken);
 
                 // loop de kantine binnen, pak de gewenste
                 // artikelen, sluit aan
 
-            }
+//            }
 
             // verwerk rij voor de kassa
 

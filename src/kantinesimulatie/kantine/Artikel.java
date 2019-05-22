@@ -1,4 +1,4 @@
-package src.kantinesimulatie.kantine;
+package kantinesimulatie.kantine;
 
 import java.math.BigDecimal;
 
@@ -10,12 +10,12 @@ public class Artikel {
     /**
      * Constructor
      */
-    public Artikel(String naam, BigDecimal prijs){
+    Artikel(String naam, BigDecimal prijs){
         this.naam = naam;
         this.prijs = prijs;
     }
 
-    public Artikel() {
+    Artikel() {
         naam = null;
         prijs = BigDecimal.ZERO;
     }
