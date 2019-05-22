@@ -26,7 +26,7 @@ public class Canteen {
      * Get in line.
      */
     public void newCustomer(){
-
+        // @TODO week 2
     }
 
     /**

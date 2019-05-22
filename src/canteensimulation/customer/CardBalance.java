@@ -14,8 +14,8 @@ public class CardBalance extends PaymentBalance {
      *
      * @param limit Limit of the negative amount.
      */
-    public void setCreditLimit(String limit){
-        creditLimit = parseString(limit);
+    public void setCreditLimit(BigDecimal limit){
+        creditLimit = limit;
     }
 
     /**
@@ -24,10 +24,9 @@ public class CardBalance extends PaymentBalance {
      * @param amount Amount to pay.
      * @return If the payment was successful.
      */
-    public boolean pay(String amount){
-        BigDecimal paymentAmount = parseString(amount);
-        if(getBalance().subtract(paymentAmount).compareTo(creditLimit.negate()) > -1){
-            subtractAmount(paymentAmount);
+    public boolean pay(BigDecimal amount){
+        if(getBalance().subtract(amount).compareTo(creditLimit.negate()) > -1){
+            subtractAmount(amount);
             return true;
         }
         return false;

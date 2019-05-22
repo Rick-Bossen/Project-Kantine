@@ -50,6 +50,7 @@ public class Inventory {
 
     /**
      * Get item or null of not available
+     * @param stack List of items to get.
      */
     private Item getItem(ArrayList<Item> stack) {
         if (stack == null || stack.size() == 0) {
