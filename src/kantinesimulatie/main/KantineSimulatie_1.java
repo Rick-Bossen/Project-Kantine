@@ -1,7 +1,6 @@
 package kantinesimulatie.main;
 
 import kantinesimulatie.kantine.Kantine;
-import kantinesimulatie.utility.Maand;
 
 public class KantineSimulatie_1 {
 
@@ -48,16 +47,15 @@ public class KantineSimulatie_1 {
      */
     public static void main(String[] args) {
 
-        System.out.println(Maand.JANUARY);
-//        KantineSimulatie_1 simulatie = new KantineSimulatie_1();
-//        int dagen;
-//
-//        if (args.length == 0) {
-//            dagen = DAGEN;
-//        } else {
-//            dagen = Integer.parseInt(args[0]);
-//        }
-//
-//        simulatie.simuleer(dagen);
+        KantineSimulatie_1 simulatie = new KantineSimulatie_1();
+        int dagen;
+
+        if (args.length == 0) {
+            dagen = DAGEN;
+        } else {
+            dagen = Integer.parseInt(args[0]);
+        }
+
+        simulatie.simuleer(dagen);
     }
 }
