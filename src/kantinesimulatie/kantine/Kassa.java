@@ -4,19 +4,20 @@ import kantinesimulatie.klant.Dienblad;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Iterator;
 
 public class Kassa {
 
     private KassaRij kassaRij;
     private int aantalArtikelen;
-    private BigDecimal saldo;
+    private BigDecimal balans;
 
     /**
      * Constructor
      */
     public Kassa(KassaRij kassaRij) {
         this.kassaRij = kassaRij;
-        resetKassa();
+        leegKassa();
     }
 
     /**
@@ -25,11 +26,26 @@ public class Kassa {
      * de kassa worden bijgehouden. De implementatie wordt
      * later vervangen door een echte betaling door de persoon.
      *
-     * @param klant die moet afrekenen
+     * @param dienblad die moet afrekenen
      */
-    public void rekenAf(Dienblad klant) {
-        aantalArtikelen += klant.getAantalArtikelen();
-        saldo = saldo.add(klant.getTotaalPrijs());
+    public void rekenAf(Dienblad dienblad) {
+        Iterator<Artikel> artikelen = dienblad.getArtikelen();
+
+        // In de opdracht stond dat er per se een iterator gereturnt moet worden.
+        // Dus het aantal artikelen moet heleaas ook zo gecount worden.
+        int aantalArtikelen = 0;
+        BigDecimal price = BigDecimal.ZERO;
+        price = price.setScale(2, RoundingMode.HALF_EVEN);
+
+        while (artikelen.hasNext()){
+            Artikel artikel = artikelen.next();
+            price = price.add(artikel.getPrijs());
+            aantalArtikelen++;
+        }
+
+
+        this.aantalArtikelen += aantalArtikelen;
+        balans = balans.add(price);
     }
 
     /**
@@ -38,7 +54,7 @@ public class Kassa {
      *
      * @return aantal artikelen
      */
-    public int aantalArtikelen() {
+    public int aantalVerkochteArtikelen() {
         return aantalArtikelen;
     }
 
@@ -50,16 +66,16 @@ public class Kassa {
      * @return hoeveelheid geld in de kassa
      */
     public BigDecimal hoeveelheidGeldInKassa() {
-        return saldo;
+        return balans;
     }
 
     /**
-     * reset de waarden van het aantal gepasseerde artikelen en
+     * Leeg de waarden van het aantal gepasseerde artikelen en
      * de totale hoeveelheid geld in de kassa.
      */
-    public void resetKassa() {
+    public void leegKassa() {
         aantalArtikelen = 0;
-        saldo = BigDecimal.ZERO;
-        saldo = saldo.setScale(2, RoundingMode.HALF_EVEN);
+        balans = BigDecimal.ZERO;
+        balans = balans.setScale(2, RoundingMode.HALF_EVEN);
     }
 }

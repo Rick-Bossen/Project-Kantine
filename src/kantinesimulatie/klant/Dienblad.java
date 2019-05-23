@@ -2,22 +2,19 @@ package kantinesimulatie.klant;
 
 import kantinesimulatie.kantine.Artikel;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Iterator;
-import java.util.LinkedList;
-
+import java.util.Stack;
 
 public class Dienblad {
 
-    private LinkedList<Artikel> artikelen;
+    private Stack<Artikel> artikelen;
     private Persoon klant;
 
     /**
      * Constructor
      */
     public Dienblad() {
-        artikelen = new LinkedList<>();
+        artikelen = new Stack<>();
     }
 
     public Dienblad(Persoon klant) {
@@ -26,47 +23,35 @@ public class Dienblad {
     }
 
     /**
-     * Methode om artikel aan dienblad toe te voegen
-     *
-     * @param artikel
+     * Methode om artikel aan dienblad toe te voegen.
+     * @param artikel Artikel om toe te voegen.
      */
     public void voegToe(Artikel artikel) {
         artikelen.add(artikel);
     }
 
     /**
-     * Methode om aantal artikelen op dienblad te tellen
-     *
-     * @return Het aantal artikelen
+     * Haal alle artikelen die op het dienblad staan.
+     * @return De artikelen.
      */
-    public int getAantalArtikelen() {
-        return artikelen.size();
+    public Iterator<Artikel> getArtikelen() {
+        return artikelen.iterator();
     }
 
     /**
-     * Methode om de totaalprijs van de artikelen
-     * op dienblad uit te rekenen
-     *
-     * @return De totaalprijs
+     * Haal de klant op die het dienblad vast houd.
+     * @return De klant.
      */
-    public BigDecimal getTotaalPrijs() {
-        Iterator iterator = artikelen.iterator();
-        BigDecimal price = BigDecimal.ZERO;
-        price = price.setScale(2, RoundingMode.HALF_EVEN);
-
-        while (iterator.hasNext()){
-            Artikel artikel = (Artikel) iterator.next();
-            price = price.add(artikel.getPrijs());
-        }
-        return price;
-    }
-
-    public Persoon getCustomer() {
+    public Persoon getKlant() {
         return klant;
     }
 
-    public void setCustomer(Persoon customer) {
-        this.klant = customer;
+    /**
+     * Voeg de klant toe die het dienblad vast houd.
+     * @param klant De klant.
+     */
+    public void setKlant(Persoon klant) {
+        this.klant = klant;
     }
 }
 
