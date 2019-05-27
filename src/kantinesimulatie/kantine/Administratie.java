@@ -36,6 +36,7 @@ public class Administratie {
     public static BigDecimal berekenGemiddeldeOmzet(BigDecimal[] omzet) {
         int numberCount = omzet.length;
         BigDecimal total = BigDecimal.ZERO;
+        total = total.setScale(2, RoundingMode.HALF_EVEN);
 
         for(int i = 0; i < numberCount; i++){
             total = total.add(omzet[i]);
@@ -55,6 +56,8 @@ public class Administratie {
 
         for(int dagVanWeek = 0; dagVanWeek < DAYS_IN_WEEK; dagVanWeek++) {
             temp[dagVanWeek] = BigDecimal.ZERO;
+            temp[dagVanWeek] = temp[dagVanWeek].setScale(2, RoundingMode.HALF_EVEN);
+
             int weekOffset = 0;
 
             while (omzet.length > (weekOffset + dagVanWeek)) {
