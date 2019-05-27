@@ -1,13 +1,13 @@
 package kantinesimulatie.utility;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class DatumTest {
+public class DatumTest {
 
     @Test
-    void bestaatDatum() {
+    public void bestaatDatum() {
         Datum datum = new Datum();
 
         // Out of range years

@@ -17,18 +17,34 @@ public class Student extends Persoon {
         super();
     }
 
+    /**
+     * Haal het student nummer van de student op.
+     * @return Het student nummer.
+     */
     public String getStudentnummer() {
         return studentnummer;
     }
 
+    /**
+     * Zet het student nummer van de student.
+     * @param studentnummer Een string die de het student nummer weergeeft.
+     */
     public void setStudentnummer(String studentnummer) {
         this.studentnummer = studentnummer;
     }
 
+    /**
+     * Haal de studierichting die de student volgt op.
+     * @return De studierichting.
+     */
     public String getStudierichting() {
         return studierichting;
     }
 
+    /**
+     * Voeg de studierichting die de student volgt toe.
+     * @param studierichting De studierichting.
+     */
     public void setStudierichting(String studierichting) {
         this.studierichting = studierichting;
     }

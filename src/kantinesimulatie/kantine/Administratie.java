@@ -17,7 +17,7 @@ public class Administratie {
      * @param aantal
      * @return het gemiddelde
      */
-    public  static double berekenGemiddeldAantal(int[] aantal) {
+    public static double berekenGemiddeldAantal(int[] aantal) {
         int numberCount = aantal.length;
         double total = 0;
 
@@ -53,12 +53,14 @@ public class Administratie {
     public static BigDecimal[] berekenDagOmzet(BigDecimal[] omzet) {
         BigDecimal[] temp = new BigDecimal[DAYS_IN_WEEK];
 
-        for(int i = 0; i < DAYS_IN_WEEK; i++) {
+        for(int dagVanWeek = 0; dagVanWeek < DAYS_IN_WEEK; dagVanWeek++) {
+            temp[dagVanWeek] = BigDecimal.ZERO;
+            int weekOffset = 0;
 
-            int j = 0;
-            while (omzet.length < (i + DAYS_IN_WEEK * j)) {
-                temp[i] = temp[i].add(omzet[i + DAYS_IN_WEEK * j]);
-                j++;
+            while (omzet.length > (weekOffset + dagVanWeek)) {
+                temp[dagVanWeek] = temp[dagVanWeek].add(omzet[weekOffset + dagVanWeek]);
+
+                weekOffset += DAYS_IN_WEEK;
             }
         }
         return temp;

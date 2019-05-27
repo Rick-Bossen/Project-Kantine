@@ -70,7 +70,9 @@ public class KantineAanbod {
         {
             Artikel a=stapel.get(0);
             stapel.remove(0);
-            if(stapel.size()<=20)vulVoorraadAan(a.getNaam());
+            if(stapel.size() <= 5){
+                vulVoorraadAan(a.getNaam());
+            }
             return a;
         }
     }
