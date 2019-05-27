@@ -3,8 +3,7 @@ package kantinesimulatie.main;
 import kantinesimulatie.kantine.Kantine;
 import kantinesimulatie.kantine.KantineAanbod;
 import kantinesimulatie.kantine.Kassa;
-import kantinesimulatie.klant.Dienblad;
-import kantinesimulatie.klant.Persoon;
+import kantinesimulatie.klant.*;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -39,12 +38,15 @@ public class KantineSimulatie {
     private static final int MAX_ARTIKELEN_PER_SOORT = 20000;
 
     // minimum en maximum aantal personen per dag
-    private static final int MIN_PERSONEN_PER_DAG = 50;
-    private static final int MAX_PERSONEN_PER_DAG = 100;
+//    private static final int MIN_PERSONEN_PER_DAG = 50;
+//    private static final int MAX_PERSONEN_PER_DAG = 100;
+
+    // aantal personen per type (student,docent,medewerker)
+    private static final int[] aantalPersonenPerType = {89, 10, 1};
 
     // minimum en maximum artikelen per persoon
-    private static final int MIN_ARTIKELEN_PER_PERSOON = 1;
-    private static final int MAX_ARTIKELEN_PER_PERSOON = 4;
+    private static final int MIN_ARTIKELEN_PER_PERSOON = 10;
+    private static final int MAX_ARTIKELEN_PER_PERSOON = 20;
 
     /**
      * Constructor
@@ -71,25 +73,42 @@ public class KantineSimulatie {
      * @param dagen Aantal dagen die gesimuleert moeten worden.
      */
     public void simuleer(int dagen) {
-        for (int dag = 1; dag <= dagen; dag++){
-            int aantalKlanten = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
-            for (int klant = 1; klant < aantalKlanten; klant++){
+        for (int dag = 1; dag <= dagen; dag++) {
+            int type = 0;
+            for (int aantalKlanten : aantalPersonenPerType) {
+                for (int klant = 1; klant < aantalKlanten; klant++) {
 
-                Dienblad dienblad = new Dienblad(new Persoon());
+                    Dienblad dienblad;
 
-                int aantalArtikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
-                int[] artikelIndexes = getRandomArray(aantalArtikelen, 0, AANTAL_ARTIKELEN - 1);
-                String[] artikelen = geefArtikelNamen(artikelIndexes);
+                    switch(type) {
+                        case 0:
+                            dienblad = new Dienblad(new Student());
+                            break;
+                        case 1:
+                            dienblad = new Dienblad(new Docent());
+                            break;
+                        case 2:
+                            dienblad = new Dienblad(new KantineMedewerker());
+                            break;
+                        default:
+                            dienblad = new Dienblad(new Persoon());
+                    }
 
-                kantine.loopPakSluitAan(dienblad, artikelen);
+                    int aantalArtikelen = getRandomValue(MIN_ARTIKELEN_PER_PERSOON, MAX_ARTIKELEN_PER_PERSOON);
+                    int[] artikelIndexes = getRandomArray(aantalArtikelen, 0, AANTAL_ARTIKELEN - 1);
+                    String[] artikelen = geefArtikelNamen(artikelIndexes);
+
+                    kantine.loopPakSluitAan(dienblad, artikelen);
+                }
+
+                kantine.verwerkRijVoorKassa();
+
+                System.out.printf("Dag %d: %d artikelen verkocht met een opbrengst van \u20ac %.2f\n",
+                        dag, kassa.aantalVerkochteArtikelen(), kassa.hoeveelheidGeldInKassa());
+
+                kassa.leegKassa();
+                type++;
             }
-
-            kantine.verwerkRijVoorKassa();
-
-            System.out.printf("Dag %d: %d artikelen verkocht met een opbrengst van \u20ac %.2f\n",
-                    dag, kassa.aantalVerkochteArtikelen(), kassa.hoeveelheidGeldInKassa());
-
-            kassa.leegKassa();
         }
     }
 

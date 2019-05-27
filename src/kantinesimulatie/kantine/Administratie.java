@@ -1,6 +1,15 @@
 package kantinesimulatie.kantine;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Administratie {
+
+    private static final int DAYS_IN_WEEK = 7;
+
+    private  Administratie(){
+
+    }
 
     /**
      * Deze methode berekent van de int array aantal de gemiddelde waarde
@@ -8,18 +17,30 @@ public class Administratie {
      * @param aantal
      * @return het gemiddelde
      */
-    public double berekenGemiddeldAantal(int[] aantal) {
-        return 0;
+    public  static double berekenGemiddeldAantal(int[] aantal) {
+        int numberCount = aantal.length;
+        double total = 0;
+
+        for(int i = 0; i < numberCount; i++){
+            total += aantal[i];
+        }
+        return total / numberCount;
     }
 
     /**
-     * Deze methode berekent van de double array omzet de gemiddelde waarde
+     * Deze methode berekent van de BigDecimal array omzet de gemiddelde waarde
      *
      * @param omzet
      * @return het gemiddelde
      */
-    public double berekenGemiddeldeOmzet(double[] omzet) {
-        return 0;
+    public static BigDecimal berekenGemiddeldeOmzet(BigDecimal[] omzet) {
+        int numberCount = omzet.length;
+        BigDecimal total = BigDecimal.ZERO;
+
+        for(int i = 0; i < numberCount; i++){
+            total = total.add(omzet[i]);
+        }
+        return total.divide(BigDecimal.valueOf(numberCount),2 , RoundingMode.HALF_EVEN);
     }
 
     /**
@@ -29,7 +50,17 @@ public class Administratie {
      * @return array (7 elementen) met dagomzetten
      */
 
-    public static double[] berekenDagOmzet(double[] omzet) {
-        return null;
+    public static BigDecimal[] berekenDagOmzet(BigDecimal[] omzet) {
+        BigDecimal[] temp = new BigDecimal[DAYS_IN_WEEK];
+
+        for(int i = 0; i < DAYS_IN_WEEK; i++) {
+
+            int j = 0;
+            while (omzet.length < (i + DAYS_IN_WEEK * j)) {
+                temp[i] = temp[i].add(omzet[i + DAYS_IN_WEEK * j]);
+                j++;
+            }
+        }
+        return temp;
     }
 }

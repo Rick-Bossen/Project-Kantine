@@ -59,7 +59,7 @@ public class KantineAanbod {
      * Retourneert null als de stapel leeg is.
      */
     private Artikel getArtikel(ArrayList<Artikel> stapel) {
-        if (stapel==null) { 
+        if (stapel==null) {
             return null;
         }
         if (stapel.size()==0)
@@ -70,7 +70,7 @@ public class KantineAanbod {
         {
             Artikel a=stapel.get(0);
             stapel.remove(0);
-            if(stapel.size()<=10)vulVoorraadAan(a.getNaam());
+            if(stapel.size()<=20)vulVoorraadAan(a.getNaam());
             return a;
         }
     }
