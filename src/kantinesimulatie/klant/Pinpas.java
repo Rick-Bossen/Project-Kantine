@@ -4,21 +4,24 @@ import java.math.BigDecimal;
 
 public class Pinpas extends Betaalwijze {
 
-    private double kredietlimiet;
+    private BigDecimal kredietLimiet;
 
     /**
-     * Methode om kredietlimiet te zetten
+     * Methode om kredietLimiet te zetten
      * @param kredietlimiet
      */
     public void setKredietLimiet(BigDecimal kredietlimiet) {
-        // method body omitted
+        this.kredietLimiet = kredietlimiet;
     }
 
     /**
-     * Methode om betaling af te handelen
+     * Return als de er betaalt kan warden met de huidige betaalwijze.
+     *
+     * @param bedrag Bedrag wat er betaald moet worden.
+     * @return Als er betaalt kan worden. Bedrag moet meer zijn dan het saldo + kredietLimiet
      */
-    public boolean betaal(BigDecimal tebetalen) {
-        // method body omitted
-        return false;
+    @Override
+    protected boolean kanBetalen(BigDecimal bedrag) {
+        return getSaldo().add(kredietLimiet).compareTo(bedrag) >= 0;
     }
 }
