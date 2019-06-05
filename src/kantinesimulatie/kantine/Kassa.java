@@ -1,6 +1,9 @@
 package kantinesimulatie.kantine;
 
 import kantinesimulatie.klant.Dienblad;
+import kantinesimulatie.klant.KortingskaartHouder;
+import kantinesimulatie.klant.Persoon;
+import kantinesimulatie.klant.TeWeinigGeldException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -29,10 +32,9 @@ public class Kassa {
      * @param dienblad die moet afrekenen
      */
     public void rekenAf(Dienblad dienblad) {
+        Persoon klant = dienblad.getKlant();
         Iterator<Artikel> artikelen = dienblad.getArtikelen();
 
-        // In de opdracht stond dat er per se een iterator gereturnt moet worden.
-        // Dus het aantal artikelen moet heleaas ook zo gecount worden.
         int aantalArtikelen = 0;
         BigDecimal price = BigDecimal.ZERO;
         price = price.setScale(2, RoundingMode.HALF_EVEN);
@@ -44,9 +46,23 @@ public class Kassa {
             aantalArtikelen++;
         }
 
+        if(klant instanceof KortingskaartHouder){
+            KortingskaartHouder houder = (KortingskaartHouder) klant;
+            BigDecimal korting = price.multiply(houder.geefKortingsPercentage());
 
-        this.aantalArtikelen += aantalArtikelen;
-        balans = balans.add(price);
+            if(houder.heeftMaximum() && houder.geefMaximum().compareTo(korting) > 0){
+                korting = houder.geefMaximum();
+            }
+            price = price.subtract(korting);
+        }
+
+        try{
+            klant.getBetaalwijze().betaal(price);
+            this.aantalArtikelen += aantalArtikelen;
+            balans = balans.add(price);
+        }catch (TeWeinigGeldException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     /**

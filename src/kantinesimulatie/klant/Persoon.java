@@ -9,6 +9,7 @@ public class Persoon {
     private String achternaam;
     private Datum geboorteDatum;
     private char geslacht;
+    private Betaalwijze betaalwijze;
 
     private static final char MAN = 'M';
     private static final char VROUW = 'V';
@@ -82,6 +83,22 @@ public class Persoon {
         }else{
             this.geslacht = ONBEKEND;
         }
+    }
+
+    /**
+     * Retourneer de betaalwijze van de persoon.
+     * @return Betaalwijze van de persoon.
+     */
+    public Betaalwijze getBetaalwijze(){
+        return betaalwijze;
+    }
+
+    /**
+     * Set de betaalwijze die de persoon gebruikt.
+     * @param betaalwijze Betaalwijze van de persoon.
+     */
+    public void setBetaalwijze(Betaalwijze betaalwijze){
+        this.betaalwijze = betaalwijze;
     }
 
     public String toString(){

@@ -2,7 +2,9 @@ package kantinesimulatie.klant;
 
 import kantinesimulatie.utility.Datum;
 
-public class KantineMedewerker extends Persoon {
+import java.math.BigDecimal;
+
+public class KantineMedewerker extends Persoon implements KortingskaartHouder {
 
     String medewerkersnummer;
     boolean magAchterKassa;
@@ -47,5 +49,29 @@ public class KantineMedewerker extends Persoon {
      */
     public void setMagAchterKassa(boolean magAchterKassa) {
         this.magAchterKassa = magAchterKassa;
+    }
+
+    /**
+     * Methode om kortingspercentage op te vragen
+     */
+    @Override
+    public BigDecimal geefKortingsPercentage() {
+        return BigDecimal.valueOf(0.35);
+    }
+
+    /**
+     * Methode om op te vragen of er maximum per keer aan de korting zit
+     */
+    @Override
+    public boolean heeftMaximum() {
+        return false;
+    }
+
+    /**
+     * Methode om het maximum kortingsbedrag op te vragen
+     */
+    @Override
+    public BigDecimal geefMaximum() {
+        return null;
     }
 }
