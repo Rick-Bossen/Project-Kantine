@@ -10,12 +10,12 @@ public class Artikel {
     /**
      * Constructor
      */
-    Artikel(String naam, BigDecimal prijs){
+    public Artikel(String naam, BigDecimal prijs){
         this.naam = naam;
         this.prijs = prijs;
     }
 
-    Artikel() {
+    public Artikel() {
         naam = null;
         prijs = BigDecimal.ZERO;
     }
