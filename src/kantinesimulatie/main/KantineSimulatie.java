@@ -7,6 +7,7 @@ import kantinesimulatie.kantine.Kassa;
 import kantinesimulatie.klant.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -20,6 +21,7 @@ public class KantineSimulatie {
     private Kantine kantine;
     private KantineAanbod aanbod;
     private Kassa kassa;
+    private LocalDate datum;
 
     private Random random;
 
@@ -62,6 +64,7 @@ public class KantineSimulatie {
         kantine = new Kantine();
         kassa = kantine.getKassa();
         random = new Random();
+        datum = LocalDate.now();
 
         int[] artikelHoeveelheden = getRandomArray(
             AANTAL_ARTIKELEN,
@@ -82,6 +85,7 @@ public class KantineSimulatie {
     public void simuleer(int dagen) {
         int[] aantal = new int[dagen];
         BigDecimal[] omzet = new BigDecimal[dagen];
+        BigDecimal[] korting = new BigDecimal[dagen];
 
         for (int dag = 1; dag <= dagen; dag++) {
             int aantalKlanten = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
@@ -107,12 +111,14 @@ public class KantineSimulatie {
                 kantine.loopPakSluitAan(dienblad, artikelen);
             }
 
-            kantine.verwerkRijVoorKassa();
+            kantine.verwerkRijVoorKassa(datum);
 
             aantal[dag - 1] = kassa.aantalVerkochteArtikelen();
             omzet[dag - 1] = kassa.hoeveelheidGeldInKassa();
+            korting[dag - 1] = kassa.hoeveelheidKortingGerekend();
 
             kassa.leegKassa();
+            datum = datum.plusDays(1);
         }
 
         outputAdministratie(dagen, aantal, omzet);

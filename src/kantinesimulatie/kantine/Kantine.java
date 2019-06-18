@@ -2,6 +2,8 @@ package kantinesimulatie.kantine;
 
 import kantinesimulatie.klant.Dienblad;
 
+import java.time.LocalDate;
+
 public class Kantine {
 
     private Kassa kassa;
@@ -51,10 +53,10 @@ public class Kantine {
     /**
      * Deze methode handelt de rij voor de kassa af.
      */
-    public void verwerkRijVoorKassa() {
+    public void verwerkRijVoorKassa(LocalDate datum) {
         while (kassaRij.isNietLeeg()){
             Dienblad customer = kassaRij.eerstePersoonInRij();
-            kassa.rekenAf(customer);
+            kassa.rekenAf(datum,customer);
         }
     }
 }

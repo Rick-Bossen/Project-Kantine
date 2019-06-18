@@ -1,16 +1,18 @@
 package kantinesimulatie.kantine;
 
 import kantinesimulatie.klant.Dienblad;
+import kantinesimulatie.utility.Factuur;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Iterator;
+import java.time.LocalDate;
 
 public class Kassa {
 
     private KassaRij kassaRij;
     private int aantalArtikelen;
     private BigDecimal balans;
+    private BigDecimal toegepasteKorting;
 
     /**
      * Constructor
@@ -28,25 +30,11 @@ public class Kassa {
      *
      * @param dienblad die moet afrekenen
      */
-    public void rekenAf(Dienblad dienblad) {
-        Iterator<Artikel> artikelen = dienblad.getArtikelen();
-
-        // In de opdracht stond dat er per se een iterator gereturnt moet worden.
-        // Dus het aantal artikelen moet heleaas ook zo gecount worden.
-        int aantalArtikelen = 0;
-        BigDecimal price = BigDecimal.ZERO;
-        price = price.setScale(2, RoundingMode.HALF_EVEN);
-
-        while (artikelen.hasNext()){
-            Artikel artikel = artikelen.next();
-            price = price.add(artikel.getPrijs());
-            price = price.subtract(artikel.getKorting());
-            aantalArtikelen++;
-        }
-
-
-        this.aantalArtikelen += aantalArtikelen;
-        balans = balans.add(price);
+    public void rekenAf(LocalDate datum, Dienblad dienblad) {
+        Factuur factuur = new Factuur(dienblad, datum);
+        this.aantalArtikelen += factuur.getAantalArtikelen();
+        balans = balans.add(factuur.getTotaal());
+        toegepasteKorting = factuur.getKorting();
     }
 
     /**
@@ -70,6 +58,10 @@ public class Kassa {
         return balans;
     }
 
+    public BigDecimal hoeveelheidKortingGerekend() {
+        return toegepasteKorting;
+    }
+
     /**
      * Leeg de waarden van het aantal gepasseerde artikelen en
      * de totale hoeveelheid geld in de kassa.
@@ -78,5 +70,7 @@ public class Kassa {
         aantalArtikelen = 0;
         balans = BigDecimal.ZERO;
         balans = balans.setScale(2, RoundingMode.HALF_EVEN);
+        toegepasteKorting = BigDecimal.ZERO;
+        toegepasteKorting = toegepasteKorting.setScale(2,RoundingMode.HALF_EVEN);
     }
 }
