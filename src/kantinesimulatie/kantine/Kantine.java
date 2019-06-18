@@ -2,6 +2,7 @@ package kantinesimulatie.kantine;
 
 import kantinesimulatie.klant.Dienblad;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 
 public class Kantine {
@@ -10,12 +11,15 @@ public class Kantine {
     private KassaRij kassaRij;
     private KantineAanbod kantineAanbod;
 
+    private EntityManager manager;
+
     /**
      * Constructor
      */
-    public Kantine() {
+    public Kantine(EntityManager manager) {
+        this.manager = manager;
         kassaRij = new KassaRij();
-        kassa = new Kassa(kassaRij);
+        kassa = new Kassa(kassaRij,manager);
     }
 
     /**

@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Iterator;
 
 @Entity
@@ -70,6 +69,7 @@ public class Factuur implements Serializable {
         return  aantalArtikelen;
     }
 
+    @Override
     public String toString() {
         return "Subtotaal: €" + totaal.add(korting).doubleValue() + "\n"
                 + "Korting: €" + korting.doubleValue() + "\n"

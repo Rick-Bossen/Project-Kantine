@@ -61,7 +61,9 @@ public class KantineSimulatie {
      * Constructor
      */
     public KantineSimulatie() {
-        kantine = new Kantine();
+        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+
+        kantine = new Kantine(manager);
         kassa = kantine.getKassa();
         random = new Random();
         datum = LocalDate.now();

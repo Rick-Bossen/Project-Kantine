@@ -3,6 +3,8 @@ package kantinesimulatie.kantine;
 import kantinesimulatie.klant.Dienblad;
 import kantinesimulatie.utility.Factuur;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -14,12 +16,16 @@ public class Kassa {
     private BigDecimal balans;
     private BigDecimal toegepasteKorting;
 
+    private EntityManager manager;
+
     /**
      * Constructor
      */
-    public Kassa(KassaRij kassaRij) {
+    public Kassa(KassaRij kassaRij, EntityManager manager) {
         this.kassaRij = kassaRij;
         leegKassa();
+
+        this.manager = manager;
     }
 
     /**
@@ -35,6 +41,19 @@ public class Kassa {
         this.aantalArtikelen += factuur.getAantalArtikelen();
         balans = balans.add(factuur.getTotaal());
         toegepasteKorting = factuur.getKorting();
+
+        EntityTransaction transaction = null;
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+            manager.persist(factuur);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     /**
