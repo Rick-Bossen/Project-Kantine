@@ -6,18 +6,27 @@ public class Artikel {
 
     private String naam;
     private BigDecimal prijs;
+    private BigDecimal korting;
 
     /**
      * Constructor
      */
-    Artikel(String naam, BigDecimal prijs){
+
+    Artikel(String naam, BigDecimal prijs) {
         this.naam = naam;
         this.prijs = prijs;
+        korting = BigDecimal.ZERO;
+    }
+
+    Artikel(String naam, BigDecimal prijs, BigDecimal korting){
+        this(naam, prijs);
+        this.korting = korting;
     }
 
     Artikel() {
         naam = null;
         prijs = BigDecimal.ZERO;
+        korting = BigDecimal.ZERO;
     }
 
     public void setNaam(String naam) {
@@ -28,12 +37,22 @@ public class Artikel {
         this.prijs = prijs;
     }
 
+    public void setKorting(BigDecimal korting)
+    {
+        this.korting = korting;
+    }
+
     public String getNaam() {
         return naam;
     }
 
     public BigDecimal getPrijs() {
         return prijs;
+    }
+
+    public BigDecimal getKorting()
+    {
+        return korting;
     }
 
     public String toString(){

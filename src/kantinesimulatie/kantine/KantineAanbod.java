@@ -1,6 +1,7 @@
 package kantinesimulatie.kantine;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class KantineAanbod {
@@ -15,15 +16,31 @@ public class KantineAanbod {
      * moeten wel gelijk zijn!
      */
     public KantineAanbod(String[] artikelnaam, BigDecimal[] prijs, int[] hoeveelheid) {
+        Random random = new Random();
         aanbod= new HashMap<>();
         startVoorraad= new HashMap<>();
         prijzen= new HashMap<>();
+
+        boolean productHeeftKorting = false;
+
         for(int i=0;i<artikelnaam.length;i++) 
         {
             ArrayList<Artikel> artikelen= new ArrayList<>();
             for(int j=0;j<hoeveelheid[i];j++) 
             {
-                artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
+                if((random.nextInt(100) + 1) <= 25){
+
+                    artikelen.add(new Artikel(artikelnaam[i], prijs[i], getKorting(prijs[i])));
+
+                    productHeeftKorting = true;
+                }else{
+                    artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
+                }
+            }
+
+            if(!productHeeftKorting){
+                int kortingArtikel = random.nextInt(artikelen.size());
+                artikelen.get(kortingArtikel).setKorting(getKorting(artikelen.get(kortingArtikel).getPrijs()));
             }
             startVoorraad.put(artikelnaam[i], hoeveelheid[i]);
             prijzen.put(artikelnaam[i], prijs[i]);
@@ -85,5 +102,9 @@ public class KantineAanbod {
      */
     public Artikel getArtikel(String productnaam) {
         return getArtikel(getArrayList(productnaam));
+    }
+
+    private BigDecimal getKorting(BigDecimal prijs) {
+        return prijs.divide(BigDecimal.valueOf(5), RoundingMode.HALF_EVEN);
     }
 }

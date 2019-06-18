@@ -10,6 +10,10 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Random;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class KantineSimulatie {
 
 
@@ -45,6 +49,11 @@ public class KantineSimulatie {
     // minimum en maximum artikelen per persoon
     private static final int MIN_ARTIKELEN_PER_PERSOON = 1;
     private static final int MAX_ARTIKELEN_PER_PERSOON = 4;
+
+    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY =
+            Persistence.createEntityManagerFactory("KantineSimulatie");
+    private EntityManager manager;
+
 
     /**
      * Constructor

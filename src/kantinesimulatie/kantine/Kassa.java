@@ -40,6 +40,7 @@ public class Kassa {
         while (artikelen.hasNext()){
             Artikel artikel = artikelen.next();
             price = price.add(artikel.getPrijs());
+            price = price.subtract(artikel.getKorting());
             aantalArtikelen++;
         }
 
