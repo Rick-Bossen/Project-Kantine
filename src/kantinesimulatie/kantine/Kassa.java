@@ -42,18 +42,19 @@ public class Kassa {
         while (artikelen.hasNext()){
             Artikel artikel = artikelen.next();
             price = price.add(artikel.getPrijs());
-            price = price.subtract(artikel.getKorting());
-            aantalArtikelen++;
-        }
 
-        if(klant instanceof KortingskaartHouder){
-            KortingskaartHouder houder = (KortingskaartHouder) klant;
-            BigDecimal korting = price.multiply(houder.geefKortingsPercentage());
+            if(!(artikel.getKorting().doubleValue() == 0)) {
+                price = price.subtract(artikel.getKorting());
+            }else if(klant instanceof KortingskaartHouder){
+                KortingskaartHouder houder = (KortingskaartHouder) klant;
+                BigDecimal korting = price.multiply(houder.geefKortingsPercentage());
 
-            if(houder.heeftMaximum() && houder.geefMaximum().compareTo(korting) > 0){
-                korting = houder.geefMaximum();
+                if(houder.heeftMaximum() && houder.geefMaximum().compareTo(korting) > 0){
+                    korting = houder.geefMaximum();
+                }
+                price = price.subtract(korting);
             }
-            price = price.subtract(korting);
+            aantalArtikelen++;
         }
 
         try{
