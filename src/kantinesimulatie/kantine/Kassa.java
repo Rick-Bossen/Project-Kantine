@@ -1,6 +1,9 @@
 package kantinesimulatie.kantine;
 
 import kantinesimulatie.klant.Dienblad;
+import kantinesimulatie.klant.KortingskaartHouder;
+import kantinesimulatie.klant.Persoon;
+import kantinesimulatie.klant.TeWeinigGeldException;
 import kantinesimulatie.utility.Factuur;
 
 import javax.persistence.EntityManager;
