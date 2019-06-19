@@ -5,6 +5,8 @@ import java.math.RoundingMode;
 import java.util.*;
 
 public class KantineAanbod {
+
+    private String dagAanbieding;
     private HashMap<String, ArrayList<Artikel>> aanbod;
     private HashMap<String, Integer> startVoorraad;
     private HashMap<String, BigDecimal> prijzen;
@@ -16,33 +18,48 @@ public class KantineAanbod {
      * moeten wel gelijk zijn!
      */
     public KantineAanbod(String[] artikelnaam, BigDecimal[] prijs, int[] hoeveelheid) {
-        Random random = new Random();
         aanbod= new HashMap<>();
         startVoorraad= new HashMap<>();
         prijzen= new HashMap<>();
 
-        boolean productHeeftKorting = false;
-
-        for(int i=0;i<artikelnaam.length;i++) 
+        for(int i=0;i<artikelnaam.length;i++)
         {
             ArrayList<Artikel> artikelen= new ArrayList<>();
             for(int j=0;j<hoeveelheid[i];j++) 
             {
-                if((random.nextInt(100) + 1) <= 25){
-                    artikelen.add(new Artikel(artikelnaam[i], prijs[i], getKorting(prijs[i])));
-                    productHeeftKorting = true;
-                }else{
-                    artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
-                }
+                artikelen.add(new Artikel(artikelnaam[i], prijs[i]));
             }
 
-            if(!productHeeftKorting){
-                int kortingArtikel = random.nextInt(artikelen.size());
-                artikelen.get(kortingArtikel).setKorting(getKorting(artikelen.get(kortingArtikel).getPrijs()));
-            }
             startVoorraad.put(artikelnaam[i], hoeveelheid[i]);
             prijzen.put(artikelnaam[i], prijs[i]);
             aanbod.put(artikelnaam[i], artikelen);
+        }
+    }
+
+    /**
+     * Zet een willekeurige dag aanbieding
+     */
+    public void zetDagAanbieding(){
+        Random random = new Random();
+        int kortingArtikel = random.nextInt(aanbod.size());
+        int artikelNummer = 0;
+        for (Map.Entry<String, ArrayList<Artikel>> entry : aanbod.entrySet()) {
+            boolean korting = false;
+            if(artikelNummer == kortingArtikel){
+                dagAanbieding = entry.getKey();
+                korting = true;
+            }
+
+            for (Artikel artikel : entry.getValue()){
+                BigDecimal kortingsBedrag = BigDecimal.ZERO;
+                if(korting){
+                    kortingsBedrag = getKorting(artikel.getPrijs());
+                }
+
+                artikel.setKorting(kortingsBedrag);
+            }
+
+            artikelNummer++;
         }
     }
 
@@ -56,7 +73,12 @@ public class KantineAanbod {
     	BigDecimal prijs = prijzen.get(productnaam);
         for(int j=huidigeHoeveelheid;j<startHoeveelheid;j++) 
         {
-        	huidigeVoorraad.add(new Artikel(productnaam, prijs));
+            Artikel artikel = new Artikel(productnaam, prijs);
+            if(productnaam.equals(dagAanbieding)){
+                artikel.setKorting(getKorting(artikel.getPrijs()));
+            }
+
+        	huidigeVoorraad.add(artikel);
         }
         aanbod.put(productnaam, huidigeVoorraad);
     }

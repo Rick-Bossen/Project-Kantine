@@ -90,6 +90,7 @@ public class KantineSimulatie {
         BigDecimal[] korting = new BigDecimal[dagen];
 
         for (int dag = 1; dag <= dagen; dag++) {
+            aanbod.zetDagAanbieding();
             int aantalKlanten = getRandomValue(MIN_PERSONEN_PER_DAG, MAX_PERSONEN_PER_DAG);
             for (int klant = 1; klant < aantalKlanten; klant++){
                 Dienblad dienblad;
