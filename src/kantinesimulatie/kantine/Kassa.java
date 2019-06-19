@@ -1,6 +1,7 @@
 package kantinesimulatie.kantine;
 
 import kantinesimulatie.klant.Dienblad;
+import kantinesimulatie.klant.TeWeinigGeldException;
 import kantinesimulatie.utility.Factuur;
 import kantinesimulatie.utility.FactuurRegel;
 
@@ -54,7 +55,7 @@ public class Kassa {
             this.aantalArtikelen += factuur.getAantalArtikelen();
             balans = balans.add(factuur.getTotaal());
             toegepasteKorting = factuur.getKorting();
-        } catch (Exception e) {
+        } catch (TeWeinigGeldException e) {
             if (transaction != null) {
                 transaction.rollback();
             }

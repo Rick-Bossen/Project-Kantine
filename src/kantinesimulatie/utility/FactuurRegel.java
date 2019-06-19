@@ -14,7 +14,7 @@ public class FactuurRegel implements Serializable {
     @Column(name = "id", unique = true)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Factuur factuur;
 
     @Embedded()
@@ -25,6 +25,10 @@ public class FactuurRegel implements Serializable {
     public FactuurRegel(Factuur factuur, Artikel artikel){
         this.factuur = factuur;
         this.artikel = artikel;
+    }
+
+    public Artikel getArtikel(){
+        return artikel;
     }
 
     @Override

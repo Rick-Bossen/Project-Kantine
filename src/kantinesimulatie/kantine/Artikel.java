@@ -7,13 +7,13 @@ import java.math.BigDecimal;
 @Embeddable
 public class Artikel {
 
-    @Column(name = "naam")
+    @Column(name = "naam", nullable = false, length = 40)
     private String naam;
 
-    @Column(name = "prijs")
+    @Column(name = "prijs", nullable = false, precision = 4, scale = 2)
     private BigDecimal prijs;
 
-    @Column(name = "korting")
+    @Column(name = "korting", nullable = false, precision = 4, scale = 2)
     private BigDecimal korting;
 
     /**
