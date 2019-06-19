@@ -1,11 +1,19 @@
 package kantinesimulatie.kantine;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.math.BigDecimal;
 
+@Embeddable
 public class Artikel {
 
+    @Column(name = "naam")
     private String naam;
+
+    @Column(name = "prijs")
     private BigDecimal prijs;
+
+    @Column(name = "korting")
     private BigDecimal korting;
 
     /**

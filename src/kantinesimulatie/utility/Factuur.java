@@ -3,7 +3,6 @@ package kantinesimulatie.utility;
 import kantinesimulatie.kantine.Artikel;
 import kantinesimulatie.klant.Dienblad;
 import kantinesimulatie.klant.KortingskaartHouder;
-import kantinesimulatie.klant.Persoon;
 import kantinesimulatie.klant.TeWeinigGeldException;
 
 import javax.persistence.*;
@@ -11,7 +10,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 @Entity
 public class Factuur implements Serializable {
@@ -32,7 +33,11 @@ public class Factuur implements Serializable {
     @Column(name = "aantal_artikelen")
     private int aantalArtikelen;
 
+    @OneToMany()
+    private List<FactuurRegel> factuurRegels;
+
     public Factuur() {
+        factuurRegels = new ArrayList<>();
         totaal = BigDecimal.ZERO;
         totaal = totaal.setScale(2,RoundingMode.HALF_EVEN);
         korting = BigDecimal.ZERO;
@@ -60,15 +65,17 @@ public class Factuur implements Serializable {
                 totaal = totaal.subtract(artikel.getKorting());
             } else if (dienblad instanceof KortingskaartHouder) {
                 KortingskaartHouder houder = (KortingskaartHouder) dienblad;
-                BigDecimal kaardKorting = totaal.multiply(houder.geefKortingsPercentage());
+                BigDecimal kaartKorting = totaal.multiply(houder.geefKortingsPercentage());
 
-                if (houder.heeftMaximum() && houder.geefMaximum().compareTo(kaardKorting) > 0) {
-                    kaardKorting = houder.geefMaximum();
+                if (houder.heeftMaximum() && houder.geefMaximum().compareTo(kaartKorting) > 0) {
+                    kaartKorting = houder.geefMaximum();
                 }
-                totaal = totaal.subtract(kaardKorting);
-                korting = korting.add(kaardKorting);
+                totaal = totaal.subtract(kaartKorting);
+                korting = korting.add(kaartKorting);
             }
 
+            FactuurRegel factuurRegel = new FactuurRegel(this, artikel);
+            factuurRegels.add(factuurRegel);
         }
         aantalArtikelen++;
 
@@ -87,10 +94,19 @@ public class Factuur implements Serializable {
         return  aantalArtikelen;
     }
 
+    public List<FactuurRegel> getFactuurRegels(){
+        return factuurRegels;
+    }
+
     @Override
     public String toString() {
-        return "Subtotaal: €" + totaal.add(korting).doubleValue() + "\n"
-                + "Korting: €" + korting.doubleValue() + "\n"
-                + "Totaal: €" + totaal.doubleValue();
+        String factuur = "\n\nFactuur: " + id + "\n\n";
+        for (FactuurRegel regel: factuurRegels) {
+            factuur += regel.toString();
+        }
+
+        factuur += "---------------------------------\n";
+        factuur += String.format("%-25s%8s", "Totaal", "€ " + getTotaal());
+        return factuur;
     }
 }

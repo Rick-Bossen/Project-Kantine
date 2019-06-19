@@ -2,6 +2,7 @@ package kantinesimulatie.kantine;
 
 import kantinesimulatie.klant.Dienblad;
 import kantinesimulatie.utility.Factuur;
+import kantinesimulatie.utility.FactuurRegel;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -40,14 +41,19 @@ public class Kassa {
         EntityTransaction transaction = null;
         try {
             Factuur factuur = new Factuur(dienblad, datum);
-            this.aantalArtikelen += factuur.getAantalArtikelen();
-            balans = balans.add(factuur.getTotaal());
-            toegepasteKorting = factuur.getKorting();
-
             transaction = manager.getTransaction();
             transaction.begin();
             manager.persist(factuur);
+
+            for (FactuurRegel regel: factuur.getFactuurRegels()){
+                manager.persist(regel);
+            }
+
             transaction.commit();
+
+            this.aantalArtikelen += factuur.getAantalArtikelen();
+            balans = balans.add(factuur.getTotaal());
+            toegepasteKorting = factuur.getKorting();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

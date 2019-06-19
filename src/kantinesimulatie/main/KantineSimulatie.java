@@ -5,6 +5,7 @@ import kantinesimulatie.kantine.Kantine;
 import kantinesimulatie.kantine.KantineAanbod;
 import kantinesimulatie.kantine.Kassa;
 import kantinesimulatie.klant.*;
+import kantinesimulatie.utility.Factuur;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -222,15 +223,14 @@ public class KantineSimulatie {
     }
 
     private void printTopFive() {
-        Query q = manager.createQuery("SELECT id, aantalArtikelen, datum, korting, totaal FROM Factuur ORDER BY totaal DESC");
+        Query q = manager.createQuery("FROM Factuur ORDER BY totaal desc");
         q.setMaxResults(5);
-        List<Object[]> resultList = q.getResultList();
+        List<Factuur> resultList = q.getResultList();
 
         System.out.println("Top drie hoogste facturen:");
-        System.out.format("\n%-15s%-15s%-15s%-15s%-15s", "ID", "Totaal", "Korting", "Artikelen", "Datum");
 
-        for(Object[] result: resultList) {
-            System.out.format("\n%-15s%-15s%-15s%-15s%-15s", result[0], "€ " + result[4], "€ " + result[3], result[1], result[2]);
+        for(Factuur factuur: resultList) {
+            System.out.println(factuur.toString());
         }
     }
 
