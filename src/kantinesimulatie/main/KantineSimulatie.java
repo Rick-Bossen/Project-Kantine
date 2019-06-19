@@ -7,13 +7,16 @@ import kantinesimulatie.kantine.Kassa;
 import kantinesimulatie.klant.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class KantineSimulatie {
 
@@ -200,6 +203,39 @@ public class KantineSimulatie {
             }
             BigDecimal dagOmzet = omzetPerDag[dag];
             System.out.printf("Gemiddelde omzet voor %s: \u20ac %.2f\n", dagVanDeWeek, dagOmzet);
+        }
+        printStats();
+        printTopThree();
+    }
+
+    private void printStats() {
+        Query q = manager.createQuery("SELECT SUM(totaal), SUM(korting), COUNT(totaal) FROM Factuur");
+        List<Object[]> resultList = q.getResultList();
+        BigDecimal totaal = (BigDecimal) resultList.get(0)[0];
+        BigDecimal korting = (BigDecimal) resultList.get(0)[1];
+        Long count = (Long) resultList.get(0)[2];
+
+        System.out.println("Totale winst: €" + totaal.doubleValue());
+        System.out.println("Totale korting: €" + korting.doubleValue());
+        System.out.println("Gemiddelde winst per artikel: €" + totaal.divide(BigDecimal.valueOf(count), RoundingMode.HALF_EVEN));
+        System.out.println("Gemiddelde korting per artikel: €" + korting.divide(BigDecimal.valueOf(count), RoundingMode.HALF_EVEN));
+    }
+
+    private void printTopThree() {
+        Query q = manager.createQuery("SELECT id,aantalArtikelen,datum,korting,totaal FROM Factuur ORDER BY totaal DESC");
+        q.setMaxResults(3);
+        List<Object[]> resultList = q.getResultList();
+
+        int number = 1;
+        for(Object[] result: resultList) {
+            System.out.println("Nummer: " + number);
+            System.out.println("Id :" + result[0]);
+            System.out.println("Aantal artikelen: " + result[1]);
+            System.out.println("Datum: " + result[2]);
+            System.out.println("Korting: €" + result[3]);
+            System.out.println("Totaal: €" + result[4]);
+            System.out.println("\n");
+            number++;
         }
     }
 
