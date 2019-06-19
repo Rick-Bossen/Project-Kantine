@@ -206,7 +206,8 @@ public class KantineSimulatie {
             System.out.printf("Gemiddelde omzet voor %s: \u20ac %.2f\n", dagVanDeWeek, dagOmzet);
         }
         printStats();
-        printTopFive();
+        printTopThree(false);
+        printTopThree(true);
     }
 
     private void printStats() {
@@ -222,12 +223,19 @@ public class KantineSimulatie {
         System.out.println("Gemiddelde korting per artikel: € " + korting.divide(BigDecimal.valueOf(count), RoundingMode.HALF_EVEN));
     }
 
-    private void printTopFive() {
-        Query q = manager.createQuery("FROM Factuur ORDER BY totaal desc");
-        q.setMaxResults(5);
-        List<Factuur> resultList = q.getResultList();
+    private void printTopThree(boolean discountOnly) {
+        String queryString;
+        if(discountOnly){
+            System.out.println("Top three hoogste facturen met korting:");
+            queryString = "FROM Factuur WHERE korting > 0 ORDER BY totaal desc";
+        }else{
+            System.out.println("Top three hoogste facturen:");
+            queryString = "FROM Factuur ORDER BY totaal desc";
+        }
 
-        System.out.println("Top drie hoogste facturen:");
+        Query q = manager.createQuery(queryString);
+        q.setMaxResults(3);
+        List<Factuur> resultList = q.getResultList();
 
         for(Factuur factuur: resultList) {
             System.out.println(factuur.toString());
