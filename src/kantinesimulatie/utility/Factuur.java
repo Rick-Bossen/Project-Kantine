@@ -67,6 +67,7 @@ public class Factuur implements Serializable {
             } else if (dienblad.getKlant() instanceof KortingskaartHouder) {
                 KortingskaartHouder houder = (KortingskaartHouder) dienblad.getKlant();
                 BigDecimal kaartKorting = totaal.multiply(houder.geefKortingsPercentage());
+                kaartKorting = kaartKorting.setScale(2, RoundingMode.HALF_EVEN);
 
                 if (houder.heeftMaximum() && houder.geefMaximum().compareTo(kaartKorting) > 0) {
                     kaartKorting = houder.geefMaximum();
@@ -111,7 +112,7 @@ public class Factuur implements Serializable {
         BigDecimal kaartKorting = korting.subtract(artikelKorting);
         if(kaartKorting.compareTo(BigDecimal.ZERO) > 0){
             factuur += "---------------------------------\n";
-            factuur += String.format("%-25s%8s\n", "Kortingskaart", "€ " + kaartKorting);
+            factuur += String.format("%-25s%8s\n", "Kortingskaart", "- € " + kaartKorting);
         }
 
         factuur += "---------------------------------\n";
