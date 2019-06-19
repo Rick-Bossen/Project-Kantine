@@ -205,7 +205,7 @@ public class KantineSimulatie {
             System.out.printf("Gemiddelde omzet voor %s: \u20ac %.2f\n", dagVanDeWeek, dagOmzet);
         }
         printStats();
-        printTopThree();
+        printTopFive();
     }
 
     private void printStats() {
@@ -215,27 +215,22 @@ public class KantineSimulatie {
         BigDecimal korting = (BigDecimal) resultList.get(0)[1];
         Long count = (Long) resultList.get(0)[2];
 
-        System.out.println("Totale winst: €" + totaal.doubleValue());
-        System.out.println("Totale korting: €" + korting.doubleValue());
-        System.out.println("Gemiddelde winst per artikel: €" + totaal.divide(BigDecimal.valueOf(count), RoundingMode.HALF_EVEN));
-        System.out.println("Gemiddelde korting per artikel: €" + korting.divide(BigDecimal.valueOf(count), RoundingMode.HALF_EVEN));
+        System.out.println("Totale winst: € " + totaal.doubleValue());
+        System.out.println("Totale korting: € " + korting.doubleValue());
+        System.out.println("Gemiddelde winst per artikel: € " + totaal.divide(BigDecimal.valueOf(count), RoundingMode.HALF_EVEN));
+        System.out.println("Gemiddelde korting per artikel: € " + korting.divide(BigDecimal.valueOf(count), RoundingMode.HALF_EVEN));
     }
 
-    private void printTopThree() {
-        Query q = manager.createQuery("SELECT id,aantalArtikelen,datum,korting,totaal FROM Factuur ORDER BY totaal DESC");
-        q.setMaxResults(3);
+    private void printTopFive() {
+        Query q = manager.createQuery("SELECT id, aantalArtikelen, datum, korting, totaal FROM Factuur ORDER BY totaal DESC");
+        q.setMaxResults(5);
         List<Object[]> resultList = q.getResultList();
 
-        int number = 1;
+        System.out.println("Top drie hoogste facturen:");
+        System.out.format("\n%-15s%-15s%-15s%-15s%-15s", "ID", "Totaal", "Korting", "Artikelen", "Datum");
+
         for(Object[] result: resultList) {
-            System.out.println("Nummer: " + number);
-            System.out.println("Id :" + result[0]);
-            System.out.println("Aantal artikelen: " + result[1]);
-            System.out.println("Datum: " + result[2]);
-            System.out.println("Korting: €" + result[3]);
-            System.out.println("Totaal: €" + result[4]);
-            System.out.println("\n");
-            number++;
+            System.out.format("\n%-15s%-15s%-15s%-15s%-15s", result[0], "€ " + result[4], "€ " + result[3], result[1], result[2]);
         }
     }
 
