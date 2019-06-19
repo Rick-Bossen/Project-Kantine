@@ -56,7 +56,6 @@ public class Factuur implements Serializable {
             totaal = totaal.subtract(artikel.getKorting());
 
             if (artikel.getKorting().doubleValue() > 0) {
-                System.out.println("test");
                 korting = korting.add(artikel.getKorting());
                 totaal = totaal.subtract(artikel.getKorting());
             } else if (dienblad instanceof KortingskaartHouder) {

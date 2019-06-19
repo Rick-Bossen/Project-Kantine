@@ -41,7 +41,6 @@ public class KantineAanbod {
             if(!productHeeftKorting){
                 int kortingArtikel = random.nextInt(artikelen.size());
                 artikelen.get(kortingArtikel).setKorting(getKorting(artikelen.get(kortingArtikel).getPrijs()));
-                System.out.println(artikelen.get(kortingArtikel).getPrijs().doubleValue());
             }
             startVoorraad.put(artikelnaam[i], hoeveelheid[i]);
             prijzen.put(artikelnaam[i], prijs[i]);
