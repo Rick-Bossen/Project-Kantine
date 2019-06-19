@@ -1,6 +1,7 @@
 package kantinesimulatie.klant;
 
 import java.math.BigDecimal;
+import java.util.Random;
 
 public abstract class Betaalwijze {
 
@@ -22,6 +23,10 @@ public abstract class Betaalwijze {
         return this.saldo;
     }
 
+    public void randomSaldo() {
+        Random random = new Random();
+        saldo = BigDecimal.valueOf(random.nextInt(11));
+    }
     /**
      * Methode om betaling af te handelen
      * @param bedrag Bedrag wat er betaald moet worden.

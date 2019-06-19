@@ -2,10 +2,11 @@ package kantinesimulatie.utility;
 
 import kantinesimulatie.kantine.Artikel;
 import kantinesimulatie.klant.Dienblad;
+import kantinesimulatie.klant.KortingskaartHouder;
+import kantinesimulatie.klant.Persoon;
+import kantinesimulatie.klant.TeWeinigGeldException;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -15,7 +16,7 @@ import java.util.Iterator;
 @Entity
 public class Factuur implements Serializable {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
     private long id;
 
@@ -38,23 +39,41 @@ public class Factuur implements Serializable {
         korting = korting.setScale(2,RoundingMode.HALF_EVEN);
     }
 
-    public Factuur(Dienblad klant, LocalDate datum) {
+    public Factuur(Dienblad klant, LocalDate datum) throws TeWeinigGeldException{
         this();
         this.datum = datum;
 
         verwerkBestelling(klant);
     }
 
-    private void verwerkBestelling(Dienblad dienblad) {
+
+    private void verwerkBestelling(Dienblad dienblad) throws TeWeinigGeldException {
         Iterator<Artikel> artikelen = dienblad.getArtikelen();
 
-        while (artikelen.hasNext()){
+        while (artikelen.hasNext()) {
             Artikel artikel = artikelen.next();
             totaal = totaal.add(artikel.getPrijs());
             totaal = totaal.subtract(artikel.getKorting());
-            korting = korting.add(artikel.getKorting());
-            aantalArtikelen++;
+
+            if (artikel.getKorting().doubleValue() > 0) {
+                System.out.println("test");
+                korting = korting.add(artikel.getKorting());
+                totaal = totaal.subtract(artikel.getKorting());
+            } else if (dienblad instanceof KortingskaartHouder) {
+                KortingskaartHouder houder = (KortingskaartHouder) dienblad;
+                BigDecimal kaardKorting = totaal.multiply(houder.geefKortingsPercentage());
+
+                if (houder.heeftMaximum() && houder.geefMaximum().compareTo(kaardKorting) > 0) {
+                    kaardKorting = houder.geefMaximum();
+                }
+                totaal = totaal.subtract(kaardKorting);
+                korting = korting.add(kaardKorting);
+            }
+
         }
+        aantalArtikelen++;
+
+        dienblad.getKlant().getBetaalwijze().betaal(totaal);
     }
 
     public BigDecimal getTotaal() {

@@ -2,6 +2,9 @@ package kantinesimulatie.klant;
 
 import kantinesimulatie.utility.Datum;
 
+import java.math.BigDecimal;
+import java.util.Random;
+
 public class Persoon {
 
     private String BSN;
@@ -22,6 +25,7 @@ public class Persoon {
         this.achternaam = achternaam;
         this.geboorteDatum = geboorteDatum;
         setGeslacht(geslacht);
+        setRandomBetaalMethode();
     }
 
     public Persoon() {
@@ -30,6 +34,7 @@ public class Persoon {
         achternaam = null;
         geboorteDatum = new Datum();
         geslacht = ONBEKEND;
+        setRandomBetaalMethode();
     }
 
     public String getBSN() {
@@ -83,6 +88,19 @@ public class Persoon {
         }else{
             this.geslacht = ONBEKEND;
         }
+    }
+
+    public void setRandomBetaalMethode() {
+        Betaalwijze betaalwijze;
+        Random random = new Random();
+        if((random.nextInt(100) + 1) <= 50) {
+            betaalwijze = new Pinpas();
+            ((Pinpas) betaalwijze).setKredietLimiet(BigDecimal.valueOf(random.nextInt(10)));
+        }else{
+            betaalwijze = new Contant();
+        }
+        betaalwijze.randomSaldo();
+        setBetaalwijze(betaalwijze);
     }
 
     /**

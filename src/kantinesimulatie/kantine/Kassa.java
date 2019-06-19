@@ -1,9 +1,6 @@
 package kantinesimulatie.kantine;
 
 import kantinesimulatie.klant.Dienblad;
-import kantinesimulatie.klant.KortingskaartHouder;
-import kantinesimulatie.klant.Persoon;
-import kantinesimulatie.klant.TeWeinigGeldException;
 import kantinesimulatie.utility.Factuur;
 
 import javax.persistence.EntityManager;
@@ -40,13 +37,13 @@ public class Kassa {
      * @param dienblad die moet afrekenen
      */
     public void rekenAf(LocalDate datum, Dienblad dienblad) {
-        Factuur factuur = new Factuur(dienblad, datum);
-        this.aantalArtikelen += factuur.getAantalArtikelen();
-        balans = balans.add(factuur.getTotaal());
-        toegepasteKorting = factuur.getKorting();
-
         EntityTransaction transaction = null;
         try {
+            Factuur factuur = new Factuur(dienblad, datum);
+            this.aantalArtikelen += factuur.getAantalArtikelen();
+            balans = balans.add(factuur.getTotaal());
+            toegepasteKorting = factuur.getKorting();
+
             transaction = manager.getTransaction();
             transaction.begin();
             manager.persist(factuur);
