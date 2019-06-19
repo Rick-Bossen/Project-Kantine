@@ -39,7 +39,7 @@ public class Factuur implements Serializable {
         korting = korting.setScale(2,RoundingMode.HALF_EVEN);
     }
 
-    public Factuur(Dienblad klant, LocalDate datum) throws TeWeinigGeldException{
+    public Factuur(Dienblad klant, LocalDate datum){
         this();
         this.datum = datum;
 
@@ -47,7 +47,7 @@ public class Factuur implements Serializable {
     }
 
 
-    private void verwerkBestelling(Dienblad dienblad) throws TeWeinigGeldException {
+    private void verwerkBestelling(Dienblad dienblad) {
         Iterator<Artikel> artikelen = dienblad.getArtikelen();
 
         while (artikelen.hasNext()) {
@@ -72,7 +72,11 @@ public class Factuur implements Serializable {
         }
         aantalArtikelen++;
 
-        dienblad.getKlant().getBetaalwijze().betaal(totaal);
+        try{
+            dienblad.getKlant().getBetaalwijze().betaal(totaal);
+        }catch (TeWeinigGeldException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     public BigDecimal getTotaal() {

@@ -29,9 +29,7 @@ public class KantineAanbod {
             for(int j=0;j<hoeveelheid[i];j++) 
             {
                 if((random.nextInt(100) + 1) <= 25){
-
                     artikelen.add(new Artikel(artikelnaam[i], prijs[i], getKorting(prijs[i])));
-
                     productHeeftKorting = true;
                 }else{
                     artikelen.add(new Artikel(artikelnaam[i], prijs[i]));

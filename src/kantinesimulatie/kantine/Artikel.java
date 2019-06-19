@@ -11,8 +11,7 @@ public class Artikel {
     /**
      * Constructor
      */
-
-    Artikel(String naam, BigDecimal prijs) {
+    public Artikel(String naam, BigDecimal prijs){
         this.naam = naam;
         this.prijs = prijs;
         korting = BigDecimal.ZERO;
@@ -23,7 +22,7 @@ public class Artikel {
         this.korting = korting;
     }
 
-    Artikel() {
+    public Artikel() {
         naam = null;
         prijs = BigDecimal.ZERO;
         korting = BigDecimal.ZERO;

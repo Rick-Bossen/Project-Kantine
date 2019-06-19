@@ -1,7 +1,6 @@
 package kantinesimulatie.kantine;
 
 import kantinesimulatie.klant.Dienblad;
-import kantinesimulatie.klant.TeWeinigGeldException;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;

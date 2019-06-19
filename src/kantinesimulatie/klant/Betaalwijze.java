@@ -27,6 +27,7 @@ public abstract class Betaalwijze {
         Random random = new Random();
         saldo = BigDecimal.valueOf(random.nextInt(11));
     }
+
     /**
      * Methode om betaling af te handelen
      * @param bedrag Bedrag wat er betaald moet worden.
